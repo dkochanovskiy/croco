@@ -14,6 +14,8 @@ public class Main {
         HashSet<String> setDuplicate = new HashSet<>();
         List<HashMap<String, String>> cityFloor = new ArrayList<>();
 
+        DirectoryParserXML xml = new DirectoryParserXML();
+
         while (true) {
             System.out.println("\nВведите путь до файла");
             filePath = reader.readLine();
@@ -34,10 +36,7 @@ public class Main {
                     }
 
                     if (filePath.startsWith("xml", filePath.length() - 3)) {
-                        if (!("<root>".equals(row)) && !("</root>".equals(row)) &&
-                                !("<?xml version=\"1.0\" encoding=\"utf-8\"?>".equals(row))) {
-                            listRow.add(row);
-                        }
+                        listRow = xml.readDirectory(row);
                     }
 
                     if (!setRow.add(row)) {
