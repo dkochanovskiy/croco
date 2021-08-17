@@ -28,44 +28,21 @@ public class Main {
                     row = fileReader.nextLine();
 
                     if (filePath.startsWith("csv", filePath.length() - 3)) {
-                        if (!("\"city\";\"street\";\"house\";\"floor\"".equals(row))) {
-//                            String[] cities = row.split(";");
-
-//                            setCity.add(cities[0].substring(1, cities[0].length() - 1));
-                        }
+                        DirectoryParserCsv csv = new DirectoryParserCsv();
+                        listRow = csv.readDirectory(row);
                     }
 
                     if (filePath.startsWith("xml", filePath.length() - 3)) {
                         listRow = xml.readDirectory(row);
                     }
 
-                    if (!setRow.add(row)) {
-                        setDuplicate.add(row);
-                    }
+                    setDuplicate = xml.searchDuplicates(row);
                 }
 
-                // вывод
-                if (setDuplicate.size() != 0) {
-                    for (String duplicate : setDuplicate) {
-                        System.out.println("Дубликат: " + duplicate + ", количество повторений: " +
-                                Collections.frequency(listRow, duplicate));
-                    }
-                } else {
-                    System.out.println("Дубликатов не обнаружено");
-                }
+                xml.showDuplicates(setDuplicate);
 
-                for (String element : listRow) {
-                    String city = element.substring(12);
-                    city = city.substring(0, city.indexOf("\""));
+                setDuplicate.clear();
 
-                    String floor = element.substring(element.indexOf("floor") + 7, element.length() - 4);
-                    HashMap<String, String> one_store = new HashMap<>();
-                    one_store.put(city, floor);
-                    cityFloor.add(one_store);
-                    System.out.println(cityFloor);
-                }
-
-                //конец вывода
                 fileReader.close();
             } catch (FileNotFoundException e) {
                 System.out.println("Файл по указанному пути не найден");
