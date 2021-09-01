@@ -9,7 +9,8 @@ public class DirectoryParserCSV implements DirectoryParser {
         if (!("\"city\";\"street\";\"house\";\"floor\"".equals(row))) {
             String[] parts = row.split(";");
             String city = parts[0].substring(1, (parts[0].length() - 1));
-            listCityFloor.add(city + ":" + parts[3]);
+            String floor = parts[parts.length - 1];
+            listCityFloor.add(city + ":" + floor);
         }
 
         return listCityFloor;

@@ -10,8 +10,6 @@ public class Main {
         Set<String> cityList = new HashSet<>();
         List<String> listCityFloor = new ArrayList<>();
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-
-        HashSet<String> setRow = new HashSet<>();
         HashSet<String> setDuplicate = new HashSet<>();
 
         DirectoryParserXML xml = new DirectoryParserXML();
@@ -41,11 +39,9 @@ public class Main {
                     setDuplicate = xml.searchDuplicates(row);
                 }
 
-                for (String item : cityList) {
-                    System.out.println(item);
-                }
-
                 xml.showDuplicates(setDuplicate);
+
+                xml.getFloorForCity(listCityFloor, cityList);
 
                 setDuplicate.clear();
 

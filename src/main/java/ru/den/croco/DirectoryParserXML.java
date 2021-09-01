@@ -11,7 +11,6 @@ public class DirectoryParserXML implements DirectoryParser {
             String city = row.substring(12);
             city = city.substring(0, city.indexOf("\""));
             String floor = row.substring(row.indexOf("floor") + 7, row.length() - 4);
-
             listCityFloor.add(city + ":" + floor);
         }
 
