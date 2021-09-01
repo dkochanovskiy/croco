@@ -1,16 +1,22 @@
 package ru.den.croco.interfaces;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
+import java.util.*;
 
 public interface DirectoryParser {
-    List<String> listRow = new ArrayList<>();
+    List<String> listCityFloor = new ArrayList<>();
     HashSet<String> setRow = new HashSet<>();
     HashSet<String> setDuplicate = new HashSet<>();
 
     List<String> readDirectory (String row);
+
+    default Set<String> getCityList (List<String> listCityFloor) {
+        Set<String> cityList = new HashSet<>();
+        for (String element : listCityFloor) {
+            cityList.add(element.split(":")[0]);
+        }
+
+        return cityList;
+    }
 
     default HashSet<String> searchDuplicates (String row) {
         if (!setRow.add(row)) {
@@ -24,7 +30,7 @@ public interface DirectoryParser {
         if (setDuplicate.size() != 0) {
             for (String duplicate : setDuplicate) {
                 System.out.println("Дубликат: " + duplicate + ", количество повторений: " +
-                        Collections.frequency(listRow, duplicate));
+                        Collections.frequency(listCityFloor, duplicate));
             }
         } else {
             System.out.println("Дубликатов не обнаружено");

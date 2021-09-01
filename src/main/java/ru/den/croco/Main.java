@@ -7,12 +7,12 @@ public class Main {
     public static void main(String[] args) throws IOException {
         String filePath;
         String row;
-        List<String> listRow = new ArrayList<>();
+        Set<String> cityList = new HashSet<>();
+        List<String> listCityFloor = new ArrayList<>();
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
         HashSet<String> setRow = new HashSet<>();
         HashSet<String> setDuplicate = new HashSet<>();
-        List<HashMap<String, String>> cityFloor = new ArrayList<>();
 
         DirectoryParserXML xml = new DirectoryParserXML();
 
@@ -28,15 +28,21 @@ public class Main {
                     row = fileReader.nextLine();
 
                     if (filePath.startsWith("csv", filePath.length() - 3)) {
-                        DirectoryParserCsv csv = new DirectoryParserCsv();
-                        listRow = csv.readDirectory(row);
+                        DirectoryParserCSV csv = new DirectoryParserCSV();
+                        listCityFloor = csv.readDirectory(row);
                     }
 
                     if (filePath.startsWith("xml", filePath.length() - 3)) {
-                        listRow = xml.readDirectory(row);
+                        listCityFloor = xml.readDirectory(row);
                     }
 
+                    cityList = xml.getCityList(listCityFloor);
+                    
                     setDuplicate = xml.searchDuplicates(row);
+                }
+
+                for (String item : cityList) {
+                    System.out.println(item);
                 }
 
                 xml.showDuplicates(setDuplicate);
